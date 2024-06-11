@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "wordpress-1269066-4577871.cloudwaysapps.com",
       },
+      {
+        protocol: "https",
+        hostname: "wordpress-1279519-4629189.cloudwaysapps.com",
+      },
     ],
   },
 };
