@@ -5,18 +5,18 @@ import React from "react";
 import { DomainUpdate } from "./domain-update";
 import CodeSnippet from "./code-snippet";
 import PremiumBadge from "@/icons/premium-badge";
-// import EditChatbotIcon from './edit-chatbot-icon'
+import EditChatbotIcon from "./edit-chatbot-icon";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/loader";
 
-// const WelcomeMessage = dynamic(
-//   () => import('./greetings-message').then((props) => props.default),
-//   {
-//     ssr: false,
-//   }
-// )
+const WelcomeMessage = dynamic(
+  () => import("./greetings-message").then((props) => props.default),
+  {
+    ssr: false,
+  }
+);
 
 type Props = {
   id: string;
@@ -57,7 +57,7 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
         <Separator orientation="horizontal" />
         <div className="grid md:grid-cols-2">
           <div className="col-span-1 flex flex-col gap-5 order-last md:order-first">
-            {/* <EditChatbotIcon
+            <EditChatbotIcon
               chatBot={chatBot}
               register={register}
               errors={errors}
@@ -66,7 +66,7 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
               message={chatBot?.welcomeMessage!}
               register={register}
               errors={errors}
-            /> */}
+            />
           </div>
           <div className="col-span-1 relative ">
             <Image
