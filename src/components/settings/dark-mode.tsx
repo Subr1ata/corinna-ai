@@ -3,9 +3,9 @@ import { useThemeMode } from "@/hooks/settings/use-settings";
 import React from "react";
 import Section from "../section-label";
 import { cn } from "@/lib/utils";
-// import { SystemMode } from '../themes-placeholder/systemmode'
-// import { LightMode } from '../themes-placeholder/lightmode'
-// import { DarkMode } from '../themes-placeholder/darkmode'
+import { SystemMode } from "../themes-placeholder/systemmode";
+import { LightMode } from "../themes-placeholder/lightmode";
+import { DarkMode } from "../themes-placeholder/darkmode";
 
 type Props = {};
 
@@ -28,7 +28,7 @@ const DarkModetoggle = (props: Props) => {
           )}
           onClick={() => setTheme("system")}
         >
-          {/* <SystemMode /> */}
+          <SystemMode />
         </div>
         <div
           className={cn(
@@ -37,7 +37,7 @@ const DarkModetoggle = (props: Props) => {
           )}
           onClick={() => setTheme("light")}
         >
-          {/* <LightMode /> */}
+          <LightMode />
         </div>
         <div
           className={cn(
@@ -46,7 +46,7 @@ const DarkModetoggle = (props: Props) => {
           )}
           onClick={() => setTheme("dark")}
         >
-          {/* <DarkMode /> */}
+          <DarkMode />
         </div>
       </div>
     </div>

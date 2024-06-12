@@ -26,8 +26,8 @@ const BillingSettings = async (props: Props) => {
           message="Add payment information, upgrade and modify your plan."
         />
       </div>
-      {/* <div className="lg:col-span-2 flex justify-start lg:justify-center ">
-        <Modal
+      <div className="lg:col-span-2 flex justify-start lg:justify-center ">
+        {/* <Modal
           title="Choose A Plan"
           description="Tell us about yourself! What do you do? Let’s tailor your experience so it best suits you."
           trigger={
@@ -53,8 +53,8 @@ const BillingSettings = async (props: Props) => {
           }
         >
           <SubscriptionForm plan={plan!} />
-        </Modal>
-      </div> */}
+        </Modal> */}
+      </div>
       <div className="lg:col-span-2">
         <h3 className="text-xl font-semibold mb-2">Current Plan</h3>
         <p className="text-sm font-semibold">{plan}</p>
