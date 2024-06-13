@@ -1,12 +1,12 @@
 "use client";
-// import { useConversation } from '@/hooks/conversation/use-conversation'
+import { useConversation } from "@/hooks/conversation/use-conversaton";
 import React from "react";
 import TabsMenu from "../tabs/index";
 import { TABS_MENU } from "@/constants/menu";
 import { TabsContent } from "../ui/tabs";
-// import ConversationSearch from './search'
+import ConversationSearch from "./search";
 import { Loader } from "../loader";
-// import ChatCard from './chat-card'
+import ChatCard from "./chat-card";
 import { CardDescription } from "../ui/card";
 import { Separator } from "../ui/separator";
 
@@ -21,19 +21,16 @@ type Props = {
 };
 
 const ConversationMenu = ({ domains }: Props) => {
-  //   const { register, chatRooms, loading, onGetActiveChatMessages } =
-  //     useConversation()
+  const { register, chatRooms, loading, onGetActiveChatMessages } =
+    useConversation();
 
   return (
     <div className="py-3 px-0">
       <TabsMenu triggers={TABS_MENU}>
         <TabsContent value="unread">
-          {/* <ConversationSearch
-            domains={domains}
-            register={register}
-          /> */}
+          <ConversationSearch domains={domains} register={register} />
           <div className="flex flex-col">
-            {/* <Loader loading={loading}>
+            <Loader loading={loading}>
               {chatRooms.length ? (
                 chatRooms.map((room) => (
                   <ChatCard
@@ -49,7 +46,7 @@ const ConversationMenu = ({ domains }: Props) => {
               ) : (
                 <CardDescription>No chats for you domain</CardDescription>
               )}
-            </Loader> */}
+            </Loader>
           </div>
         </TabsContent>
         <TabsContent value="all">
