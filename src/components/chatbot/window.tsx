@@ -2,7 +2,7 @@ import { ChatBotMessageProps } from "@/schemas/conversation.schema";
 import React, { forwardRef } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-// import RealTimeMode from './real-time'
+import RealTimeMode from "./real-time";
 import Image from "next/image";
 import TabsMenu from "../tabs/index";
 import { BOT_TABS_MENU } from "@/constants/menu";
@@ -85,11 +85,10 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               </h3>
               <p className="text-sm">{domainName.split(".com")[0]}</p>
               {realtimeMode?.mode && (
-                <>Hehe</>
-                // <RealTimeMode
-                //   setChats={setChat}
-                //   chatRoomId={realtimeMode.chatroom}
-                // />
+                <RealTimeMode
+                  setChats={setChat}
+                  chatRoomId={realtimeMode.chatroom}
+                />
               )}
             </div>
           </div>
