@@ -49,6 +49,7 @@ export const onLoginUser = async () => {
                     type: true,
                 },
             })
+
             if (authenticated) {
                 const domains = await onGetAllAccountDomains()
                 return { status: 200, user: authenticated, domain: domains?.domains }

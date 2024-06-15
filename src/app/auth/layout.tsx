@@ -10,6 +10,7 @@ type Props = {
 const Layout = async ({ children }: Props) => {
   const user = await currentUser();
 
+  console.log(user, "::user");
   if (user) redirect("/");
 
   return (

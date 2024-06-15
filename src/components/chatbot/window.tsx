@@ -10,7 +10,7 @@ import ChatIcon from "@/icons/chat-icon";
 import { TabsContent } from "../ui/tabs";
 import { Separator } from "../ui/separator";
 import Bubble from "./bubble";
-// import { Responding } from './responding'
+import { Responding } from "./responding";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Paperclip, Send } from "lucide-react";
@@ -70,7 +70,6 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
     },
     ref
   ) => {
-    console.log(errors);
     return (
       <div className="h-[670px] w-[450px] flex flex-col bg-white rounded-xl mr-[80px] border-[1px] overflow-hidden">
         <div className="flex justify-between px-4 pt-4">
@@ -103,7 +102,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
         </div>
         <TabsMenu
           triggers={BOT_TABS_MENU}
-          className=" bg-transparent border-[1px] border-border m-2"
+          className="bg-transparent border-[1px] border-border m-2"
         >
           <TabsContent value="chat">
             <Separator orientation="horizontal" />
@@ -119,10 +118,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                 {chats.map((chat, key) => (
                   <Bubble key={key} message={chat} />
                 ))}
-                {
-                  onResponding && <>Hehe</>
-                  // <Responding />
-                }
+                {onResponding && <Responding />}
               </div>
               <form
                 onSubmit={onChat}
@@ -171,8 +167,8 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
             </div>
           </TabsContent>
         </TabsMenu>
-        <div className="flex justify-center ">
-          <p className="text-gray-400 text-xs">Powered By Web Prodigies</p>
+        <div className="flex justify-center">
+          <p className="text-gray-400 text-xs">Powered By Jabotics</p>
         </div>
       </div>
     );

@@ -46,7 +46,7 @@ export const onGetBlogPosts = async () => {
             return postArray
         }
     } catch (error) {
-        console.log(error)
+        console.log(error, '::error axios')
     }
 }
 

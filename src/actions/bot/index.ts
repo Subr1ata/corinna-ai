@@ -6,10 +6,13 @@ import { onRealTimeChat } from '../conversation'
 import { clerkClient } from '@clerk/nextjs'
 import { onMailer } from '../mailer'
 import OpenAi from 'openai'
+import Groq from "groq-sdk"
 
-const openai = new OpenAi({
-    apiKey: process.env.OPEN_AI_KEY,
+const openai = new Groq({
+    apiKey: process.env.GROQ_API_KEY,
 })
+
+console.log(openai, '::openai')
 
 export const onStoreConversations = async (
     id: string,
@@ -86,6 +89,7 @@ export const onAiChatBotAssistant = async (
                 },
             },
         })
+
         if (chatBotDomain) {
             const extractedEmail = extractEmailsFromString(message)
             if (extractedEmail) {
@@ -204,6 +208,9 @@ export const onAiChatBotAssistant = async (
                     author
                 )
 
+                const customerId = checkCustomer?.customer[0].id; //get customer id
+                console.log('customerId::', customerId)
+
                 const chatCompletion = await openai.chat.completions.create({
                     messages: [
                         {
@@ -227,11 +234,9 @@ export const onAiChatBotAssistant = async (
 
                       if the customer says something out of context or inapporpriate. Simply say this is beyond you and you will get a real user to continue the conversation. And add a keyword (realtime) at the end.
 
-                      if the customer agrees to book an appointment send them this link http://localhost:3000/portal/${id}/appointment/${checkCustomer?.customer[0].id
-                                }
+                      if the customer agrees to book an appointment send them this link http://localhost:3000/portal/${id}/appointment/${customerId}/
 
-                      if the customer wants to buy a product redirect them to the payment page http://localhost:3000/portal/${id}/payment/${checkCustomer?.customer[0].id
-                                }
+                      if the customer wants to buy a product redirect them to the payment page http://localhost:3000/portal/${id}/payment/${customerId}/
                   `,
                         },
                         ...chat,
@@ -240,7 +245,7 @@ export const onAiChatBotAssistant = async (
                             content: message,
                         },
                     ],
-                    model: 'gpt-3.5-turbo',
+                    model: 'llama3-8b-8192',
                 })
 
                 if (chatCompletion.choices[0].message.content?.includes('(realtime)')) {
@@ -352,7 +357,7 @@ export const onAiChatBotAssistant = async (
                         content: message,
                     },
                 ],
-                model: 'gpt-3.5-turbo',
+                model: 'llama3-8b-8192',
             })
 
             if (chatCompletion) {

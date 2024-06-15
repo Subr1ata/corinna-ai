@@ -56,6 +56,8 @@ export const useChatBot = () => {
     { chatroom: string; mode: boolean } | undefined
   >(undefined)
 
+  console.log(onChats, '::onChats')
+
   const onScrollToBottom = () => {
     messageWindowRef.current?.scroll({
       top: messageWindowRef.current.scrollHeight,
@@ -82,6 +84,7 @@ export const useChatBot = () => {
   const onGetDomainChatBot = async (id: string) => {
     setCurrentBotId(id)
     const chatbot = await onGetCurrentChatBot(id)
+
     if (chatbot) {
       setOnChats((prev) => [
         ...prev,
@@ -130,6 +133,7 @@ export const useChatBot = () => {
         'user',
         uploaded.uuid
       )
+      console.log(response, '::response onAiChatBotAssistant')
 
       if (response) {
         setOnAiTyping(false)
