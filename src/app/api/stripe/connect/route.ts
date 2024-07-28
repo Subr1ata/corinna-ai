@@ -2,6 +2,7 @@ import { client } from '@/lib/prisma'
 import { currentUser } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 import Razorpay from 'razorpay';
+export const dynamic = 'force-dynamic'
 
 // const stripe = new Stripe(process.env.STRIPE_SECRET!, {
 //     typescript: true,
