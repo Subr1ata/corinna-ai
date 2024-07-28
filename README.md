@@ -24,3 +24,4 @@ A chatbot that behaves as a sales representative is an AI-powered computer progr
 - Shadcn UI
 - Groq SDK
 - PostgreSQL
+- Razorpay
