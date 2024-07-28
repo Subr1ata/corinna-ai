@@ -7,6 +7,7 @@ import React from "react";
 type Props = {};
 
 const Page = (props: Props) => {
+  console.log("settings::", props);
   return (
     <>
       <InfoBar />

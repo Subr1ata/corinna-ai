@@ -21,8 +21,6 @@ export const onDomainCustomerResponses = async (customerId: string) => {
             },
         })
 
-        console.log('::customerQuestions', customerQuestions)
-
         if (customerQuestions) {
             return customerQuestions
         }

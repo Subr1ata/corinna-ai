@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import PusherClient from 'pusher-js'
 import PusherServer from 'pusher'
+import axios from 'axios'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -54,3 +55,14 @@ export const getMonthName = (month: number) => {
                         ? 'Nov'
                         : month == 12 && 'Dec'
 }
+
+export const LEMON_SQUEEZY_ENDPOINT = "https://api.lemonsqeezy.com/v1/"
+
+export const lemonSqeezyApiInstance = axios.create({
+  baseURL: LEMON_SQUEEZY_ENDPOINT,
+  headers: {
+    Accept: 'application/vnd.api+json',
+    'Content-Type': 'application/vnd.api+json',
+    Authorization: `Bearer ${process.env.LEMON_SQUEEZY_API_KEY}`
+  }
+})

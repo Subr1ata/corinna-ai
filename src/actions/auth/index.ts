@@ -35,7 +35,7 @@ export const onCompleteUserRegistration = async (
 }
 
 export const onLoginUser = async () => {
-    const user = await currentUser()
+    const user = await currentUser();
     if (!user) redirectToSignIn()
     else {
         try {
@@ -49,6 +49,7 @@ export const onLoginUser = async () => {
                     type: true,
                 },
             })
+            console.log('user::onLoginUser::', user, authenticated, user.id);
 
             if (authenticated) {
                 const domains = await onGetAllAccountDomains()
