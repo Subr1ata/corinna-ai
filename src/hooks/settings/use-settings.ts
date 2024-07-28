@@ -284,10 +284,11 @@ export const useProducts = (domainId: string) => {
                     title: 'Success',
                     description: product.message,
                 })
-                setLoading(false)
             }
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     })
 
