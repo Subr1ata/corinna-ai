@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 type Props = {};
 
-const Page = (props: Props) => {
+const Page = async (props: Props) => {
   return (
     <>
       <InfoBar />

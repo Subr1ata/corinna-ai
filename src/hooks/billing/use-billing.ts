@@ -37,17 +37,20 @@ export const useStripe = () => {
 export const useStripeCustomer = (amount: number, stripeId: string) => {
   const [stripeSecret, setStripeSecret] = useState<string>('')
   const [loadForm, setLoadForm] = useState<boolean>(false)
+  const [razorpayKey, setRazorpayKey] = useState<string | undefined>('');
 
   const onGetCustomerIntent = async (amount: number) => {
     try {
       setLoadForm(true)
-      const intent = await onCreateCustomerPaymentIntentSecret(amount, stripeId)
+      const intent = await onCreateCustomerPaymentIntentSecret(amount, stripeId);
+      setRazorpayKey(intent?.key)
       if (intent) {
-        setLoadForm(false)
         setStripeSecret(intent.secret!)
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoadForm(false)
     }
   }
 
@@ -55,7 +58,7 @@ export const useStripeCustomer = (amount: number, stripeId: string) => {
     onGetCustomerIntent(amount)
   }, [])
 
-  return { stripeSecret, loadForm }
+  return { stripeSecret, loadForm, razorpayKey }
 }
 
 export const useCompleteCustomerPayment = (onNext: () => void) => {
@@ -139,7 +142,8 @@ export const useSubscriptions = (plan: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
 
 export const useStripeElements = (payment: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
   const [stripeSecret, setStripeSecret] = useState<string>('')
-  const [loadForm, setLoadForm] = useState<boolean>(false)
+  const [loadForm, setLoadForm] = useState<boolean>(false);
+  const [amount, setAmount] = useState<number | null>(null);
 
   const onGetBillingIntent = async (plans: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
     try {
@@ -148,6 +152,7 @@ export const useStripeElements = (payment: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
       if (intent) {
         setLoadForm(false)
         setStripeSecret(intent.secret!)
+        setAmount(intent.amount)
       }
     } catch (error) {
       console.log(error)
@@ -158,7 +163,7 @@ export const useStripeElements = (payment: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
     onGetBillingIntent(payment)
   }, [payment])
 
-  return { stripeSecret, loadForm }
+  return { stripeSecret, loadForm, amount }
 }
 
 export const useCompletePayment = (

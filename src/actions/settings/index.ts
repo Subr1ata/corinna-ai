@@ -98,6 +98,7 @@ export const onGetSubscriptionPlan = async () => {
             },
         })
         if (plan) {
+            console.log('paln::', plan);
             return plan.subscription?.plan
         }
     } catch (error) {

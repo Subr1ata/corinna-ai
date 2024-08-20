@@ -3,30 +3,48 @@
 import { client } from '@/lib/prisma'
 import { currentUser } from '@clerk/nextjs'
 import Stripe from 'stripe'
+import Razorpay from 'razorpay';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET!, {
-  typescript: true,
-  apiVersion: '2024-04-10',
+// const stripe = new Stripe(process.env.STRIPE_SECRET!, {
+//   typescript: true,
+//   apiVersion: '2024-04-10',
+// })
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID as string,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
 })
 
 export const onCreateCustomerPaymentIntentSecret = async (
   amount: number,
   stripeId: string
 ) => {
+  let key_id = process.env.RAZORPAY_KEY_ID;
   try {
-    const paymentIntent = await stripe.paymentIntents.create(
+    // {
+    //   "amount": 50000,
+    //   "currency": "INR",
+    //   "receipt": "receipt#1",
+    //   "notes": {
+    //     "key1": "value3",
+    //     "key2": "value2"
+    //   }
+    // }
+    const paymentIntent = await razorpay.orders.create(
       {
-        currency: 'usd',
-        amount: amount * 100,
-        automatic_payment_methods: {
-          enabled: true,
-        },
-      },
-      { stripeAccount: stripeId }
+        // amount: amount * 100,
+        amount: 1.00,
+        currency: "INR",
+        receipt: "receipt#1",
+        notes: {
+          key1: "value3",
+          key2: "value2"
+        }
+      }
     )
 
     if (paymentIntent) {
-      return { secret: paymentIntent.client_secret }
+      return { secret: paymentIntent.id, key: key_id }
     }
   } catch (error) {
     console.log(error)
@@ -88,16 +106,18 @@ export const onGetStripeClientSecret = async (
 ) => {
   try {
     const amount = setPlanAmount(item)
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency: 'usd',
+    const paymentIntent = await razorpay.orders.create({
       amount: amount,
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      currency: "INR",
+      receipt: "receipt#1",
+      notes: {
+        key1: `${item} PLAN`,
+        key2: "value2"
+      }
     })
 
     if (paymentIntent) {
-      return { secret: paymentIntent.client_secret }
+      return { secret: paymentIntent.id, amount: 1 }
     }
   } catch (error) {
     console.log(error)
