@@ -25,7 +25,7 @@ const DomainSettingsPage = async ({ params }: Props) => {
         />
         <BotTrainingForm id={domain.domains[0]?.id} />
         <ProductTable
-          id={domain.domains[0].id}
+          id={domain.domains[0]?.id}
           products={domain.domains[0].products || []}
         />
       </div>

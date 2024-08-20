@@ -56,8 +56,6 @@ export const useChatBot = () => {
     { chatroom: string; mode: boolean } | undefined
   >(undefined)
 
-  console.log(onChats, '::onChats')
-
   const onScrollToBottom = () => {
     messageWindowRef.current?.scroll({
       top: messageWindowRef.current.scrollHeight,
@@ -84,7 +82,6 @@ export const useChatBot = () => {
   const onGetDomainChatBot = async (id: string) => {
     setCurrentBotId(id)
     const chatbot = await onGetCurrentChatBot(id)
-
     if (chatbot) {
       setOnChats((prev) => [
         ...prev,
@@ -133,7 +130,6 @@ export const useChatBot = () => {
         'user',
         uploaded.uuid
       )
-      console.log(response, '::response onAiChatBotAssistant')
 
       if (response) {
         setOnAiTyping(false)
@@ -215,24 +211,24 @@ export const useRealTime = (
 ) => {
   const counterRef = useRef(1)
 
-  // useEffect(() => {
-  //   pusherClient.subscribe(chatRoom)
-  //   pusherClient.bind('realtime-mode', (data: any) => {
-  //     console.log('✅', data)
-  //     if (counterRef.current !== 1) {
-  //       setChats((prev: any) => [
-  //         ...prev,
-  //         {
-  //           role: data.chat.role,
-  //           content: data.chat.message,
-  //         },
-  //       ])
-  //     }
-  //     counterRef.current += 1
-  //   })
-  //   return () => {
-  //     pusherClient.unbind('realtime-mode')
-  //     pusherClient.unsubscribe(chatRoom)
-  //   }
-  // }, [])
+  useEffect(() => {
+    pusherClient.subscribe(chatRoom)
+    pusherClient.bind('realtime-mode', (data: any) => {
+      console.log('✅', data)
+      if (counterRef.current !== 1) {
+        setChats((prev: any) => [
+          ...prev,
+          {
+            role: data.chat.role,
+            content: data.chat.message,
+          },
+        ])
+      }
+      counterRef.current += 1
+    })
+    return () => {
+      pusherClient.unbind('realtime-mode')
+      pusherClient.unsubscribe(chatRoom)
+    }
+  }, [])
 }

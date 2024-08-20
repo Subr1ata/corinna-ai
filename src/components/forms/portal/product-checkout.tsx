@@ -51,11 +51,6 @@ const PaymentCheckout = ({
   const { toast } = useToast();
   const [processing, setProcessing] = useState(false);
 
-  // console.log(
-  //   "razorpayKey || process.env.RAZORPAY_KEY_ID:: ",
-  //   razorpayKey || process.env.RAZORPAY_KEY_ID
-  // );
-
   const processPayment = async (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     try {
